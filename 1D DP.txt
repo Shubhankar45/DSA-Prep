@@ -1,0 +1,56 @@
+// Q1.Q)  Given an array of integers(positive as well as negative), select some elements from       
+this array(select a subset) such that :-   
+
+
+1. Sum of those elements is maximum(Sum of the subset is maximum) .
+2. No two elements in the subset should be consecutive.
+
+class MaxSum{
+    public static void main(String[] args) {
+        int[] ar = {2,4,8, -10, 11, -15};
+        int[] sum = new int[6];
+        // [2, 4, 4, 4, 4]
+        sum[0] = ar[0];
+        sum[1] = ar[1];
+        // sum[2] = Math.max(sum[2 - 1], sum[2-2] + ar[2]);
+        for (int i = 2; i < ar.length; i++) {
+            sum[i] = Math.max(sum[i - 1], sum[i - 2] + ar[i]);
+            
+            
+        }
+        System.out.println(sum[ar.length-1]);
+    }
+}
+//Q2. We are given ‘2’ arrays . Select some elements from both of these arrays (select a subset) such that:-
+--->1. Sum of those elements is maximum(Sum of the subset is maximum).
+--->2. No 2 elements in the subset should be consecutive.(Note:-If you select, say the 5th element from Array-1, then you are not allowed to select 4th element from either Array-1 or Array-2 nor are you allowed to select the 5th element from Array -2 all of them are considered consecutive :-) )
+
+import java.lang.*;
+class MaxTwoArraySum{
+ public static void main(String[] args) {
+        int[] a1 = {1,5,3,21234};
+        int[] a2 ={-4509,200,3,40};
+        int dp[] = new int[4];
+        dp[0] = 1;
+        dp[1] = 200;
+
+        for (int i = 2; i < 4; i++) {
+            dp[i] = Math.max(Math.max(a1[i], a2[i]) + dp[i-2], dp[i-1]);
+        }
+        System.out.println(dp[3]);
+    }
+}
+
+//Q3..N stones, from 1 to n, having heights of stone i as hi. min cost for frog to go till N stones, if he can jump either 1 or 2 steps at a time : 
+APPROACH : heights[] = [10  20  400  20]
+ans. public static void main(String[] args) {
+        int[] stones = {10, 20, 30, 50, 20};
+        int[] dp = new int[stones.length];
+        dp[0] = stones[0];
+        dp[1] = Math.min(stones[1], dp[0]);
+        // dp[2] = Math.min(dp[2-1] + stones[2], dp[2-1] + stones[2]);
+        for (int i = 2; i < stones.length; i++) {
+            dp[i] = Math.min(dp[i - 1] + stones[i], dp[i - 2] + stones[i]);
+        }
+        System.out.println(dp[stones.length - 1]);
+    }
